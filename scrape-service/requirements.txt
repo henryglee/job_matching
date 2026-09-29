@@ -1,0 +1,13 @@
+# Web framework for scrape_service.py
+flask
+gunicorn
+
+# jobspy scraping engine dependencies (see jobspy/*/util.py, jobspy/util.py, jobspy/model.py)
+requests
+beautifulsoup4
+tls-client
+markdownify
+pandas
+numpy
+pydantic
+regex

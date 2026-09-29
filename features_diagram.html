@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Beshton Job Matching Platform — Feature Access by Role</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: #d1d5db;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 40px;
+    }
+
+    /* Each slide is 16:9 = 960×540 */
+    .slide {
+      width: 960px;
+      height: 540px;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 6px 32px rgba(0,0,0,0.18);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Slide header bar */
+    .slide-header {
+      background: #1e3a5f;
+      padding: 14px 28px;
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .slide-header h1 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.2px;
+    }
+
+    .slide-header .subtitle {
+      font-size: 0.72rem;
+      color: #93c5fd;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+
+    .slide-label {
+      margin-left: auto;
+      font-size: 0.65rem;
+      color: #93c5fd;
+      opacity: 0.7;
+    }
+
+    /* Table wrapper fills remaining height */
+    .table-wrap {
+      flex: 1;
+      overflow: hidden;
+      padding: 12px 20px 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+    }
+
+    col.feature-col { width: 52%; }
+    col.role-col    { width: 16%; }
+
+    /* Column headers */
+    thead th {
+      padding: 7px 10px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-align: center;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    thead th.feature-col-h {
+      text-align: left;
+      color: #64748b;
+      background: transparent;
+      border-bottom: 2px solid #e2e8f0;
+    }
+
+    thead th.admin-h  { color: #6d28d9; border-bottom: 2px solid #6d28d9; }
+    thead th.staff-h  { color: #0369a1; border-bottom: 2px solid #0369a1; }
+    thead th.user-h   { color: #065f46; border-bottom: 2px solid #065f46; }
+
+    .role-icon { font-size: 0.95rem; display: block; line-height: 1.3; }
+
+    /* Section rows */
+    tr.section-header td {
+      background: #f1f5f9;
+      color: #94a3b8;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      padding: 5px 10px 3px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    /* Data rows */
+    tbody tr:not(.section-header):nth-child(even) td { background: #f8fafc; }
+    tbody tr:not(.section-header):nth-child(odd)  td { background: #ffffff; }
+
+    tbody tr:not(.section-header) td {
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      color: #334155;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    td.check-cell {
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1;
+    }
+
+    .yes { color: #16a34a; }
+    .no  { color: #dc2626; }
+
+    /* Legend */
+    .legend {
+      display: flex;
+      justify-content: flex-end;
+      gap: 20px;
+      padding: 6px 4px 0;
+      font-size: 0.62rem;
+      color: #94a3b8;
+      flex-shrink: 0;
+    }
+    .legend span { display: flex; align-items: center; gap: 5px; }
+  </style>
+</head>
+<body>
+
+  <!-- ── SLIDE 1: Authentication + Administration ── -->
+  <div class="slide">
+    <div class="slide-header">
+      <h1>Beshton Job Matching Platform</h1>
+      <span class="subtitle">Feature Access by Role</span>
+      <span class="slide-label">1 / 3</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <colgroup>
+          <col class="feature-col" />
+          <col class="role-col" />
+          <col class="role-col" />
+          <col class="role-col" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="feature-col-h">Feature</th>
+            <th class="admin-h"><span class="role-icon">🛡️</span>Admin</th>
+            <th class="staff-h"><span class="role-icon">👔</span>Staff</th>
+            <th class="user-h"><span class="role-icon">👤</span>User</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="section-header"><td colspan="4">Authentication</td></tr>
+          <tr>
+            <td>Register an account</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Login with role selection</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Forgot / reset password via email</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+
+          <tr class="section-header"><td colspan="4">Administration</td></tr>
+          <tr>
+            <td>View &amp; manage all user accounts</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Assign / remove roles from users</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Create / edit / delete roles</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Link / unlink candidate profiles to users</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Delete user accounts</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="legend">
+        <span><span class="yes">✓</span> Available</span>
+        <span><span class="no">✗</span> Not available</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 2: Candidate Profiles ── -->
+  <div class="slide">
+    <div class="slide-header">
+      <h1>Beshton Job Matching Platform</h1>
+      <span class="subtitle">Feature Access by Role</span>
+      <span class="slide-label">2 / 3</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <colgroup>
+          <col class="feature-col" />
+          <col class="role-col" />
+          <col class="role-col" />
+          <col class="role-col" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="feature-col-h">Feature</th>
+            <th class="admin-h"><span class="role-icon">🛡️</span>Admin</th>
+            <th class="staff-h"><span class="role-icon">👔</span>Staff</th>
+            <th class="user-h"><span class="role-icon">👤</span>User</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="section-header"><td colspan="4">Candidate Profiles</td></tr>
+          <tr>
+            <td>View all candidate profiles</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Create a new candidate profile</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Edit own candidate profile</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Upload PDF resume</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Delete a candidate profile</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Claim an existing (pre-entered) profile</td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="legend">
+        <span><span class="yes">✓</span> Available</span>
+        <span><span class="no">✗</span> Not available</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 3: AI Job Matching + Job Scraping ── -->
+  <div class="slide">
+    <div class="slide-header">
+      <h1>Beshton Job Matching Platform</h1>
+      <span class="subtitle">Feature Access by Role</span>
+      <span class="slide-label">3 / 3</span>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <colgroup>
+          <col class="feature-col" />
+          <col class="role-col" />
+          <col class="role-col" />
+          <col class="role-col" />
+        </colgroup>
+        <thead>
+          <tr>
+            <th class="feature-col-h">Feature</th>
+            <th class="admin-h"><span class="role-icon">🛡️</span>Admin</th>
+            <th class="staff-h"><span class="role-icon">👔</span>Staff</th>
+            <th class="user-h"><span class="role-icon">👤</span>User</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr class="section-header"><td colspan="4">AI Job Matching</td></tr>
+          <tr>
+            <td>View personal job matches</td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>View job matches for any candidate</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Receive match email on profile creation</td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Manually send match email to candidate</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+
+          <tr class="section-header"><td colspan="4">Job Scraping</td></tr>
+          <tr>
+            <td>Auto-scrape jobs on startup</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+          </tr>
+          <tr>
+            <td>Trigger job scrape via API</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Delete old job listings</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+          <tr>
+            <td>Generate job embeddings manually</td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="yes">✓</span></td>
+            <td class="check-cell"><span class="no">✗</span></td>
+          </tr>
+
+        </tbody>
+      </table>
+      <div class="legend">
+        <span><span class="yes">✓</span> Available</span>
+        <span><span class="no">✗</span> Not available</span>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

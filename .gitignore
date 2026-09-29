@@ -1,0 +1,6 @@
+.DS_Store
+.claude/
+demo.zip
+
+# Unzipped library jar, not project source
+job-matching-spring/extracted/
