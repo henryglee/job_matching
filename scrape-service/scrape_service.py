@@ -43,6 +43,7 @@ import json
 import logging
 import math
 
+import pandas as pd
 import requests
 from flask import Flask, jsonify, request
 
@@ -132,6 +133,8 @@ def _json_safe(value):
 def scrape():
     data = request.get_json(silent=True) or {}
     site_name = data.get("site_name") or ["indeed", "google"]
+    if isinstance(site_name, str):
+        site_name = [site_name]
     search_term = data.get("search_term") or "software engineer"
     location = data.get("location") or "United States"
     results_wanted = data.get("results_wanted") or 50
@@ -141,17 +144,33 @@ def scrape():
         site_name, search_term, location, results_wanted,
     )
 
-    try:
-        jobs_df = scrape_jobs(
-            site_name=site_name,
-            search_term=search_term,
-            location=location,
-            results_wanted=results_wanted,
-            hours_old=24,
-        )
-    except Exception as e:
-        logger.exception("Scrape failed")
-        return jsonify({"error": f"Scrape failed: {e}"}), 500
+    # Scrape each site on its own so one blocked site (Google in particular answers
+    # datacenter IPs with 429s and a /sorry CAPTCHA redirect) doesn't throw away the
+    # results from sites that worked.
+    frames = []
+    failures = {}
+    for site in site_name:
+        try:
+            df = scrape_jobs(
+                site_name=[site],
+                search_term=search_term,
+                location=location,
+                results_wanted=results_wanted,
+                hours_old=24,
+            )
+        except Exception as e:
+            logger.exception("Scrape failed for site %s", site)
+            failures[site] = str(e)
+            continue
+        if df is not None and not df.empty:
+            frames.append(df)
+
+    if failures and len(failures) == len(site_name):
+        return jsonify({"error": f"Scrape failed for all sites: {failures}"}), 502
+    if failures:
+        logger.warning("Partial scrape; failed sites: %s", list(failures))
+
+    jobs_df = pd.concat(frames, ignore_index=True) if frames else None
 
     if jobs_df is None or jobs_df.empty:
         return jsonify({"jobs": []}), 200
